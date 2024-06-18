@@ -8,10 +8,19 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+      colors: {
+        primary: {
+          
+          500: "#348E38",
+          700: "#0F4229",
+          800: "#072A19",
+          
+        },
+        fontFamily: {
+          spaceMono: "Space Mono", 
+          lexendDeca: { "": "Lexend Deca" },
+        },
+        
       },
     },
   },
