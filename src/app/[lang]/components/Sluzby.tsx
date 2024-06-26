@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Sluzby = () => {
+const Sluzby = ({data}:any) => {
   return (
     <div>Sluzby</div>
   )

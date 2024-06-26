@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Features = () => {
+const Features = ({data}:any) => {
   return (
     <div>Features</div>
   )

@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Corp = () => {
+const Corp = ({data}:any) => {
   return (
     <div>Corp</div>
   )

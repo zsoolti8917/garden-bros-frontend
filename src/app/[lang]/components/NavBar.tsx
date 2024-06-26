@@ -4,8 +4,9 @@
 import React from 'react'
 import Link from "next/link";
 import { useState } from "react";
-import { usePathname } from "next/navigation";
-
+import {SolarHamburgerMenuOutline} from "./Icons/Hamburger"
+import {MaterialSymbolsClose} from "./Icons/Close"
+import Image from 'next/image';
 import Logo from "./Logo"
 
 interface NavLink{
@@ -23,45 +24,9 @@ interface CtaButton{
   type: string,
 }
 
-interface MobileNavLink extends NavLink{
-  closeMenu: () => void;
-}
 
-function NavLink({ url, text }: NavLink) {
-  const path = usePathname();
 
-  return (
-    <li className="flex">
-      <Link
-        href={url}
-        className={`flex items-center mx-4 -mb-1 border-b-2 dark:border-transparent ${
-          path === url && "dark:text-violet-400 dark:border-violet-400"
-        }}`}
-      >
-        {text}
-      </Link>
-    </li>
-  );
-}
-function MobileNavLink({ url, text, closeMenu }: MobileNavLink) {
-  const path = usePathname();
-  const handleClick = () => {
-    closeMenu();
-  };
-  return (
-    <a className="flex">
-      <Link
-        href={url}
-        onClick={handleClick}
-        className={`-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-100 hover:bg-gray-900 ${
-          path === url && "dark:text-violet-400 dark:border-violet-400"
-        }}`}
-      >
-        {text}
-      </Link>
-    </a>
-  );
-}
+
 
 
 
@@ -81,28 +46,47 @@ const NavBar = (
     logoLink: string;
   }
 ) => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const closeMenu = () => {
-    setMobileMenuOpen(false);
-  };
+  let [open, setOpen] = useState(false);
+
   return (
-    <div>
-      <Logo 
-      logoUrl={logoUrl}
-      logoText={logoText}
-      logoLink={logoLink}
-      />
-      
-      <nav>
-        <ul>
-          {navLinks.map((navLink: any) => (
-            <li key={navLink.id}>
-              <a href={navLink.url}>{navLink.text}</a>
+    <div className='shadow-md w-full bg-primary-700 z-50'>
+    {/* Overlay */}
+    <div className={`${open ? 'inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-10' : 'hidden'}`} onClick={() => setOpen(false)}></div>
+
+    
+    <div className='md:flex relative items-center justify-between px-4 py-4 md:px-0 max-w-container m-auto md:px-8'>
+      <div className='font-bold text-2xl cursor-pointer flex items-center 
+      text-primary-100'>
+        <Link href='/'> 
+        <Logo logoUrl={logoUrl} logoText={logoText} logoLink={logoLink}>
+  {logoText && <h2 className="sm:w-[240px] w-[180px]">{logoText}</h2>}
+</Logo>
+        </Link>
+      </div>
+
+      <div onClick={() => setOpen(!open)} className='text-3xl z-30 absolute right-8 sm:top-9 top-6 cursor-pointer md:hidden'>
+      <div>
+          {open ? <MaterialSymbolsClose className='text-primary-100' /> : <SolarHamburgerMenuOutline className='text-primary-100' />}
+        </div> 
+      </div>
+
+      <ul className={`md:flex md:gap-8 md:items-center md:justify-center pt-16 md:pt-0 md:flex-row md:pb-0 pb-12 fixed md:static bg-primary-700 md:z-auto z-20 h-full md:h-auto top-0 ${open ? 'right-0' : '-right-full'} w-[75%] md:w-auto md:pl-0 pl-9 transition-all duration-500 ease-in-out`}>
+        {
+          navLinks.map((link: NavLink) => (
+            <li key={link.id} className='text-xl md:my-0 my-7 pb-6 md:pb-0'>
+              <Link href={link.url} className='text-primary-100 hover:text-primary-300 duration-500'>{link.text}</Link>
             </li>
-          ))}
-        </ul>
-      </nav>
+          ))
+        }
+        <Link href='/contact'>
+        
+          Kontaktujte&nbsp;nás
+        
+        </Link>
+      </ul>
     </div>
+    
+  </div>
   )
 }
 

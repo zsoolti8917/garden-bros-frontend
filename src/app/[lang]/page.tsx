@@ -6,6 +6,7 @@ import {getPageBySlug} from "@/app/[lang]/utils/get-page-by-slug";
 export default async function RootRoute({params}: { params: { lang: string } }) {
     try {
       const page = await getPageBySlug('home', params.lang)
+      console.log(page.data[0].attributes.description)
       if (page.error && page.error.status == 401)
         throw new Error(
           'Missing or invalid credentials. Have you created an access token using the Strapi admin panel? http://localhost:1337/admin/'
@@ -18,7 +19,8 @@ export default async function RootRoute({params}: { params: { lang: string } }) 
         sectionRenderer(section, index)
       )
     } catch (error: any) {
-      console.error(error)
-      return <div>There was an error</div>
+      if (typeof window !== 'undefined') {
+        <div>error</div>
+      }
     }
 }

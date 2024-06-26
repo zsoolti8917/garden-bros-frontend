@@ -5,19 +5,22 @@ export default function Logo({
   logoUrl,
   logoText,
   logoLink,
+  children,
 }:{
   logoUrl: string;
   logoText: string;
   logoLink: string;
+  children: React.ReactNode;
 }) {
   console.log(logoUrl);
   return (
     <Link
       href={logoLink || "/"}
       aria-label="Back to homepage"
-      className=""
+      className="flex items-center p-2"
     >
-      <Image src={logoUrl} alt="Logo" width={124} height={124} />
+            {logoUrl && <Image src={logoUrl} alt="logo" width={45} height={45} />}
+            <div className="ml-2">{children}</div>
     </Link>
   );
 }
