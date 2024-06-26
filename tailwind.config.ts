@@ -14,7 +14,7 @@ const config: Config = {
           500: "#348E38",
           700: "#0F4229",
           800: "#072A19",
-          
+          200: "#E8F5E9"
         },
         fontFamily: {
           spaceMono: "Space Mono", 
