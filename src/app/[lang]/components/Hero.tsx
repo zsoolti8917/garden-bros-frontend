@@ -3,7 +3,7 @@ import { getStrapiMedia } from '../utils/api-helpers';
 import Link from 'next/link';
 import Image from 'next/image';
 import HighlightedText from './HighlightedText';
-import { renderButtonStyle } from '../utils/render-button-style';
+import AIButton from './AIButton';
 interface Picture {
   data: {
     id: string;
@@ -19,7 +19,7 @@ interface Button {
   id: string;
   url: string;
   text: string;
-  type: string;
+  type: 'primary' | 'secondary';
   newTab: boolean;
 }
 
@@ -35,9 +35,8 @@ interface HeroProps {
 
 const Hero = ({data}: HeroProps) => {
   const imgUrl = getStrapiMedia(data.picture.data.attributes.url);
-  console.log(data.button)
   return (
-    <section className="relative h-[560px] w-full">
+    <section className="relative h-[560px] w-full mb-32">
  <Image
         src={imgUrl || ""}
         alt="Hero Background"
@@ -49,14 +48,12 @@ const Hero = ({data}: HeroProps) => {
       <div className="absolute inset-0 flex flex-col items-center justify-center z-10 text-white">
         <h1 className="text-4xl md:text-6xl font-bold mb-4">{data.title}</h1>
         
-              <Link
-                
-                href={data.button.url}
-                target={data.button.newTab ? "_blank" : "_self"}
-                className={renderButtonStyle(data.button.type)}
-              >
-                {data.button.text}
-              </Link>
+        <AIButton 
+          url={data.button.url}
+          newTab={data.button.newTab}
+          type={data.button.type}
+          name={data.button.text}
+        />
             
       </div>
     </section>

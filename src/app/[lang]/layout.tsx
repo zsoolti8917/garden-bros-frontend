@@ -10,7 +10,7 @@ import HeaderInfo from "./components/HeaderInfo";
 import FooterInfo from "./components/FooterInfo";
 import {FALLBACK_SEO} from "@/app/[lang]/utils/constants";
 import { get } from "http";
-
+import NavbarNew from "./components/NavbarNew";
 
 async function getGlobal(lang: string): Promise<any> {
   const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
@@ -91,6 +91,7 @@ const navBarLogoUrl = getStrapiMedia(navbar.navbarLogo.logoImg.data?.attributes.
         navLinks={navbar.links}
         />
 
+        
         <main>{children}</main>
 
         <Footer />

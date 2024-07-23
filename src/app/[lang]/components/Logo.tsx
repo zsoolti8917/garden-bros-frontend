@@ -12,7 +12,6 @@ export default function Logo({
   logoLink: string;
   children: React.ReactNode;
 }) {
-  console.log(logoUrl);
   return (
     <Link
       href={logoLink || "/"}
