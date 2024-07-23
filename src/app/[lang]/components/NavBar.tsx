@@ -18,7 +18,7 @@ interface CtaButton {
   url: string;
   newTab: boolean;
   text: string;
-  type: string;
+  type: 'primary' | 'secondary';
 }
 
 const NavBar = ({
@@ -46,7 +46,7 @@ const NavBar = ({
           onClick={() => setOpen(false)}
         ></div>
 
-        <div className='md:flex items-center justify-between px-4 py-4 md:px-0 max-w-container m-auto md:px-8'>
+        <div className='md:flex items-center justify-between px-4 py-4 max-w-container m-auto md:px-8'>
           <div className='font-bold text-xl cursor-pointer flex items-center text-white'>
             <Link href='/'>
               <Logo logoUrl={logoUrl} logoText={logoText} logoLink={logoLink}>
@@ -57,19 +57,19 @@ const NavBar = ({
 
           <div
             onClick={() => setOpen(!open)}
-            className='text-3xl z-30 absolute right-8 sm:top-9 top-6 cursor-pointer md:hidden text-white'
+            className='text-3xl z-30 absolute right-8 sm:top-9 top-6 cursor-pointer  md:hidden text-white'
           >
             {open ? <MaterialSymbolsClose className='text-white' /> : <SolarHamburgerMenuOutline className='text-white' />}
           </div>
 
           <ul
-            className={`md:flex md:gap-8 md:items-center md:justify-center pt-16 md:pt-0 md:flex-row md:pb-0 pb-12 fixed md:static bg-primary-700 md:z-auto z-20 top-0 ${open ? 'right-0' : '-right-full'} w-[75%] md:w-auto md:pl-0 pl-9 transition-all duration-500 ease-in-out`}
+            className={`md:flex md:gap-8 md:items-center md:justify-center pt-16 md:pt-0 md:flex-row md:pb-0 pb-12 fixed md:static bg-primary-700 md:z-auto z-20 top-0 ${open ? 'right-0 h-screen' : '-right-full'} w-[75%] md:w-auto md:pl-0 pl-9 transition-all duration-500 ease-in-out`}
           >
             {navLinks.map((link: NavLink) => (
-              <li key={link.id} className='text-lg md:my-0 my-7 pb-6 md:pb-0'>
+              <li key={link.id} className=' text-white text-lg md:my-0 my-7 pb-6 md:pb-0 transition transform hover:scale-105 hover:text-green-500'>
                 <Link 
                   href={link.url} 
-                  className='text-white hover:text-gray-300 duration-300'
+                  className=''
                 >
                   {link.text}
                 </Link>
