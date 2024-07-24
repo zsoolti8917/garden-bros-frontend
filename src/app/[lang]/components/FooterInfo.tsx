@@ -1,7 +1,6 @@
 import React from 'react'
 
 const FooterInfo = ({footerInfo, footerLinks} : {footerInfo : any, footerLinks: any}) => {
-  console.log(footerLinks)
   return (
     <section className='bg-primary-800 w-full h-16 lg:px-10 px-4 text-white items-center flex justify-between'>
         <div>

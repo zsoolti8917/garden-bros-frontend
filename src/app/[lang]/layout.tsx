@@ -83,7 +83,7 @@ const navBarLogoUrl = getStrapiMedia(navbar.navbarLogo.logoImg.data?.attributes.
         contactLinks={headerInfo.contacts}
         />
         <NavBar 
-        logoUrl={navBarLogoUrl}
+        logoUrl={navBarLogoUrl || ""}
         logoLink={navbar.navbarLogo.url}
         logoText={navbar.navbarLogo.logoText}
         ctaButton={navbar.button}
@@ -93,7 +93,12 @@ const navBarLogoUrl = getStrapiMedia(navbar.navbarLogo.logoImg.data?.attributes.
         
         <main className="min-h-[80vh]">{children}</main>
 
-        <Footer />
+        <Footer 
+        footerAdresa = {footer.adresa}
+        footerSluzby = {footer.sluzby}
+        footerRo = {footer.ro}
+        footerKategorie = {footer.sluzby.categories}
+        />
         <FooterInfo 
         footerInfo={footerInfo}
         footerLinks={footerInfo.legalLinks}

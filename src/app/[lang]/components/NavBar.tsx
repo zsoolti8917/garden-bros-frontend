@@ -35,7 +35,6 @@ const NavBar = ({
   logoLink: string;
 }) => {
   const [open, setOpen] = useState(false);
-  console.log(ctaButton)
   return (
     <>
       {/* Spacer to prevent content from shifting */}
