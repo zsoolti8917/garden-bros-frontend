@@ -92,4 +92,4 @@ This project was developed by Zsolt Varjú.
 - LinkedIn: [Zsolt Varjú](https://www.linkedin.com/in/zsoltvarju/)
 - Website: [Portfolio](https://www.zsoltvarju.com)
 
-For any inquiries or support, please contact: your.email@example.com
+For any inquiries or support, please contact: zsolt.varju.rl@gmail.com
