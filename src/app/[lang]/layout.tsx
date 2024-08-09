@@ -36,6 +36,8 @@ async function getGlobal(lang: string): Promise<any> {
       "headerInfo.socials",
       "footerInfo",
       "footerInfo.legalLinks",
+      "footer.mapUrl",
+      "footer.rotitle",
     ],
     locale: lang,
   };
@@ -72,7 +74,6 @@ export default async function RootLayout({
   
   const { navbar, footer, headerInfo, footerInfo } = global.data.attributes;
 
-
 const navBarLogoUrl = getStrapiMedia(navbar.navbarLogo.logoImg.data?.attributes.url);
   return (
     <html lang={params.lang}>
@@ -98,6 +99,11 @@ const navBarLogoUrl = getStrapiMedia(navbar.navbarLogo.logoImg.data?.attributes.
         footerSluzby = {footer.sluzby}
         footerRo = {footer.ro}
         footerKategorie = {footer.sluzby.categories}
+        footerSocials = {headerInfo.socials}
+        footerContacts = {headerInfo.contacts}
+        socialText={headerInfo.socialsText}
+        footerMap={footer.mapUrl}
+        roTitle={footer.rotitle}
         />
         <FooterInfo 
         footerInfo={footerInfo}

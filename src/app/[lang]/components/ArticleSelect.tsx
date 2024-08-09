@@ -21,8 +21,8 @@ interface Article {
 
 function selectedFilter(current: string, selected: string) {
   return current === selected
-    ? "px-3 py-1 rounded-lg hover:underline dark:bg-violet-700 dark:text-gray-100"
-    : "px-3 py-1 rounded-lg hover:underline dark:bg-violet-400 dark:text-gray-900";
+    ? "px-3 py-1 rounded-lg hover:underline dark:bg-primary-800 dark:text-white"
+    : "px-3 py-1 rounded-lg hover:underline dark:bg-primary-500 dark:text-white";
 }
 
 export default function ArticleSelect({
@@ -39,15 +39,16 @@ export default function ArticleSelect({
 }) {
 
   return (
-    <div className="p-4 rounded-lg dark:bg-gray-900 min-h-[365px] relative">
-      <h4 className="text-xl font-semibold">Browse By Category</h4>
+    <div className="p-4 rounded-lg bg-primary-700 min-h-[365px] text-white relative">
+      <h4 className="text-xl font-semibold">Hľadať podľa kategorií</h4>
 
       <div>
         <div className="flex flex-wrap py-6 space-x-2 dark:border-gray-400">
-          {categories.map((category: Category) => {
+          {categories.map((category: Category, index: number) => {
             if (category.attributes.articles.data.length === 0) return null;
             return (
               <Link
+                key={index}
                 href={`/blog/${category.attributes.slug}`}
                 className={selectedFilter(
                   category.attributes.slug,
@@ -64,18 +65,19 @@ export default function ArticleSelect({
         </div>
 
         <div className="space-y-2">
-          <h4 className="text-lg font-semibold">Other Posts You May Like</h4>
+          <h4 className="text-lg font-semibold">Ďalšie súvisiace projekty</h4>
           <ul className="ml-4 space-y-1 list-disc">
-            {articles.map((article: Article) => {
+            {articles.map((article: Article, index: number) => {
               return (
-                <li>
+                <li key={index}>
                   <Link
+                    
                     rel="noopener noreferrer"
                     href={`/blog/${params.category}/${article.attributes.slug}`}
                     className={`${
                       params.slug === article.attributes.slug &&
-                      "text-violet-400"
-                    }  hover:underline hover:text-violet-400 transition-colors duration-200`}
+                      "text-primary-700"
+                    }  hover:underline hover:text-primary-500 transition-colors duration-200`}
                   >
                     {article.attributes.title}
                   </Link>

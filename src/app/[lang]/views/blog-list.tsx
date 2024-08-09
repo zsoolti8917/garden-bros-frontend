@@ -51,7 +51,7 @@ export default function PostList({
   children?: React.ReactNode;
 }) {
   return (
-    <section className="container p-6 mx-auto space-y-6 sm:space-y-12">
+    <section className="container p-6 mx-auto space-y-6 sm:space-y-12 text-white">
       <div className="grid justify-center grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {articles.map((article) => {
           const imageUrl = getStrapiMedia(
@@ -69,7 +69,7 @@ export default function PostList({
             <Link
               href={`/blog/${category?.slug}/${article.attributes.slug}`}
               key={article.id}
-              className="max-w-sm mx-auto group hover:no-underline focus:no-underline dark:bg-gray-900 lg:w-[300px] xl:min-w-[375px] rounded-2xl overflow-hidden shadow-lg"
+              className="max-w-sm mx-auto group hover:no-underline focus:no-underline bg-primary-700 lg:w-[300px] xl:min-w-[375px] rounded-2xl overflow-hidden shadow-lg"
             >
               {imageUrl && (
                 <Image

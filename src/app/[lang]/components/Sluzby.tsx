@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getStrapiMedia } from '../utils/api-helpers';
+
 interface Icon {
   data: {
     id: string;
@@ -37,7 +38,7 @@ interface SluzbyProps {
 
 const FeatureCard: React.FC<Feature> = ({ title, description, icon, url, isLink }) => {
   const imgUrl = getStrapiMedia(icon.data.attributes.url);
-
+  console.log(url)
   const cardClasses = isLink
     ? "relative bg-white px-8 py-16 shadow-xl cursor-pointer flex flex-col items-center group overflow-hidden rounded transition-transform duration-300 hover:scale-105 h-[350px]"
     : "relative bg-white px-8 py-16 shadow-xl flex flex-col items-center overflow-hidden rounded h-[350px]";
@@ -55,7 +56,7 @@ const FeatureCard: React.FC<Feature> = ({ title, description, icon, url, isLink 
     : "text-center mt-2 z-10";
 
   return isLink ? (
-    <Link href={url} className="block">
+    <Link href={`/sluzby#${url}`} className="block">
       <div className={cardClasses}>
         <div className={overlayClasses} />
         <div className="relative bg-green-100 rounded-full p-2 mb-4 z-10">

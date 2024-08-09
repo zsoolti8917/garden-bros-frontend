@@ -4,7 +4,9 @@ import Corp from "../components/Corp";
 import Info from "../components/Info";
 import Sluzby from "../components/Sluzby";
 import Projekty from "../components/Projekty";
-
+import TabsFAQ from "../components/Faq";
+import SluzbySections from "../components/SluzbySections";
+import ContactPage from "../components/ContactPage";
 export function sectionRenderer(section: any, index: number) {
   switch (section.__component) {
     case "sections.hero":
@@ -19,6 +21,13 @@ export function sectionRenderer(section: any, index: number) {
       return <Sluzby key={index} data = {section} />;
     case "sections.projekty":
       return <Projekty key={index} data = {section} />;
+    case "sections.faq":
+      return <TabsFAQ key={index} data = {section} />;
+    case "sections.sluzby-info":
+        return <SluzbySections key={index} data = {section} />;
+    case "sections.contact-info":
+      console.log(section);
+        return <ContactPage key={index} data = {section} />;
     default:
       return null;
   }

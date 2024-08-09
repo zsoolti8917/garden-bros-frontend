@@ -68,17 +68,17 @@ export default function Profile() {
 
   return (
     <div>
-      <PageHeader heading="Our Blog" text="Checkout Something Cool" />
+      <PageHeader heading="Naše projekty" text="Pozrite si na naše projekty" />
       <Blog data={data}>
         {meta!.pagination.start + meta!.pagination.limit <
           meta!.pagination.total && (
           <div className="flex justify-center">
             <button
               type="button"
-              className="px-6 py-3 text-sm rounded-lg hover:underline dark:bg-gray-900 dark:text-gray-400"
+              className="px-6 py-3 text-sm rounded-lg hover:underline text-white bg-primary-500"
               onClick={loadMorePosts}
             >
-              Load more posts...
+              Načítať ďalšie
             </button>
           </div>
         )}
