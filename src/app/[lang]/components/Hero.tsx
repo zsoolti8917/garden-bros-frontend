@@ -45,8 +45,8 @@ const Hero = ({data}: HeroProps) => {
         quality={100}
         className="z-0"
       />
-      <div className="absolute inset-0 flex flex-col items-center justify-center z-10 text-white">
-        <h1 className="text-4xl md:text-6xl font-bold mb-4">{data.title}</h1>
+      <div className="absolute inset-0 flex flex-col items-center justify-center z-10 mb-36 md:mb-0 text-white">
+        <h1 className="text-4xl md:text-6xl text-center max-w-[820px] font-bold mb-8 ">{data.title}</h1>
         
         <AIButton 
           url={data.button.url}

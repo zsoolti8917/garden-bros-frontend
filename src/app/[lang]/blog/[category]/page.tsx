@@ -1,7 +1,7 @@
 import PageHeader from '@/app/[lang]/components/PageHeader';
 import { fetchAPI } from '@/app/[lang]/utils/fetch-api';
 import BlogList from '@/app/[lang]/views/blog-list';
-
+import Link from 'next/link';
 async function fetchPostsByCategory(filter: string) {
     try {
         const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
@@ -36,7 +36,18 @@ export default async function CategoryRoute({ params }: { params: { category: st
     const { data } = await fetchPostsByCategory(filter);
 
     //TODO: CREATE A COMPONENT FOR THIS
-    if (data.length === 0) return <div>Not Posts In this category</div>;
+
+    if (data.length === 0) {
+        return (
+            <div className='text-4xl text-center text-primary-700 font-bold flex flex-col w-full min-h-[80vh] items-center justify-center'>
+                <p className='mx-auto my-4'>V tejto kategórii nie sú žiadne príspevky</p>
+                <Link href='/blog' className='px-6 py-3 text-sm rounded-lg hover:underline text-white bg-primary-500'>
+                    Prejdite na blog
+                </Link>
+            </div>
+        );
+    }
+    
 
     const { name, description } = data[0]?.attributes.category.data.attributes;
 

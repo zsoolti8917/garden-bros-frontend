@@ -17,16 +17,15 @@ const Footer = ({footerAdresa, footerSocials, footerContacts, footerSluzby, foot
   footerMap: any,
   roTitle: any
 }) => {
-  console.log(footerRo);
  // Replace with your map URL
 
   return (
     <section className='bg-primary-700 py-10 text-white'>
-      <div className='px-4 w-full flex justify-between max-w-container md:px-8'>
-        <div className='flex flex-col gap-2'>
+      <div className='px-4 w-full gap-6 gap-y-10 flex flex-wrap justify-between max-w-container md:px-8 text-center md:text-left'>
+        <div className='flex flex-col gap-2 lg:min-w-[360px] min-w-[260px] items-center md:items-baseline md:justify-start md:text-left mx-auto md:mx-0'>
           <h2 className='text-3xl font-bold pb-2'>{footerAdresa.header}</h2>
           <p className=''>{footerAdresa.adresa}</p>
-          <Contacts contactLinks={footerContacts} />
+          <Contacts contactLinks={footerContacts}/>
           <Socials 
           socialLinks={footerSocials}
           socialsText={socialText}
@@ -34,19 +33,21 @@ const Footer = ({footerAdresa, footerSocials, footerContacts, footerSluzby, foot
         </div>
 
 
-        <div className='flex flex-col gap-4'>
+        <div className='flex flex-col gap-4 lg:min-w-[360px] min-w-[260px] mx-auto md:mx-0'>
           <h2 className='text-3xl font-bold'>{footerSluzby.header}</h2>
           <ul className='flex flex-col gap-2'>
             {footerSluzby.categories.data.slice(0,5).map((category: any, index: number) => (
               <li key={index}>
+                <Link href={`/blog/${category.attributes.slug}`} className='text-white transition transform hover:scale-105 hover:text-green-500 max-w-min cursor-pointer'>
                 {category.attributes.name}
+                </Link>
               </li>
             ))}
           </ul>
         </div>
 
 
-        <div className='flex flex-col gap-4'>
+        <div className='flex flex-col gap-4 lg:min-w-[360px] min-w-[260px] mx-auto md:mx-0'>
             <h2 className='text-3xl font-bold'>{roTitle}</h2>
             <ul className='flex flex-col gap-2'>
               {footerRo.map((item: any, index: number) => (
@@ -59,7 +60,7 @@ const Footer = ({footerAdresa, footerSocials, footerContacts, footerSluzby, foot
         </div>
 
 
-        <div className='w-1/4'>
+        <div className='lg:min-w-[360px] flex-grow min-w-[260px] mx-auto md:mx-0'>
         <GoogleMapsEmbed mapUrl={footerMap} />
 
 

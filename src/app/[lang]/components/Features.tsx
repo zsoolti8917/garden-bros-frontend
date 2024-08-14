@@ -37,7 +37,7 @@ interface FeaturesProps {
 function Feature({title,description,icon}: Feature) {
   const imgUrl = getStrapiMedia(icon.data.attributes.url);
   return (
-    <div className="p-8 flex gap-4 ">
+    <div className="p-8 bg-white flex gap-4 max-w-[500px] lg:max-w-[33%] min-w-[310px]  shadow-2xl ">
       <div>
       <div className="bg-primary-200  rounded-full flex items-center justify-center h-14 w-14 z-10">
         <Image src={imgUrl || ""} alt={icon.data.attributes.alternativeText || "icon"} width={24} height={24} className='z-20' />
@@ -45,7 +45,7 @@ function Feature({title,description,icon}: Feature) {
       </div>
 
       <div>
-        <h2 className="mb-2 text-lg font-bold">{title}</h2>
+        <h2 className="mb-2 text-lg font-bold text-primary-700">{title}</h2>
         <div className="text-sm">{description}</div>
       </div>
     </div>
@@ -53,8 +53,8 @@ function Feature({title,description,icon}: Feature) {
 }
 const Features = ({data}: FeaturesProps) => {
   return (
-    <section className='w-full absolute top-[620px]'>
-      <div className='flex max-w-[1110px] mx-auto shadow-2xl bg-white '>
+    <section className='absolute md:top-[620px] top-[500px] px-6 w-full'>
+      <div className='flex max-w-[1110px] min-w-min flex-wrap mx-auto justify-center '>
         {data.features.map((feature: Feature, index: number) => (
           <Feature key={index} {...feature} />
         ))}

@@ -92,7 +92,7 @@ const navBarLogoUrl = getStrapiMedia(navbar.navbarLogo.logoImg.data?.attributes.
         />
 
         
-        <main className="min-h-[80vh]">{children}</main>
+        <main className="min-h-[80vh] bg-[#ebf9eb]">{children}</main>
 
         <Footer 
         footerAdresa = {footer.adresa}

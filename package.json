@@ -13,9 +13,11 @@
     "@headlessui/react": "^2.1.0",
     "@heroicons/react": "^2.1.4",
     "clsx": "^2.1.1",
+    "formik": "^2.4.6",
     "framer-motion": "^11.3.8",
     "negotiator": "^0.6.3",
     "next": "14.2.3",
+    "nodemailer": "^6.9.14",
     "qs": "^6.12.1",
     "react": "^18",
     "react-dom": "^18",
@@ -24,7 +26,8 @@
     "react-slideshow-image": "^4.3.1",
     "react-use-measure": "^2.1.1",
     "remark-gfm": "^4.0.0",
-    "tailwind-merge": "^2.3.0"
+    "tailwind-merge": "^2.3.0",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "@babel/core": "^7.24.7",
@@ -32,6 +35,7 @@
     "@babel/preset-react": "^7.24.7",
     "@types/negotiator": "^0.6.3",
     "@types/node": "^20",
+    "@types/nodemailer": "^6.4.15",
     "@types/qs": "^6.9.15",
     "@types/react": "^18",
     "@types/react-dom": "^18",

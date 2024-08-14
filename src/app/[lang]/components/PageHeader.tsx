@@ -5,9 +5,10 @@ interface PageHeaderProps {
   
   export default function PageHeader({ heading, text } : PageHeaderProps) {
     return (
-      <div className="my-16 w-full text-center">
-      { text && <span className="text-primary-500 font-bold">{text}</span> }
-      <h2 className="text-4xl text-primary-700 my-4 lg:text-5xl font-bold font-heading">{heading}</h2>
+      <div className="py-10 w-full text-center max-w-[800px] mx-auto">
+      
+      <h2 className="text-5xl text-center pb-10 text-primary-700 font-bold">{heading}</h2>
+      { text && <span className="text-center pb-10 mx-auto ">{text}</span> }
     </div>
     );
   }

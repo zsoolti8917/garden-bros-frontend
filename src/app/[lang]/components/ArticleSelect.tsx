@@ -37,13 +37,12 @@ export default function ArticleSelect({
     category: string;
   };
 }) {
-
   return (
-    <div className="p-4 rounded-lg bg-primary-700 min-h-[365px] text-white relative">
+    <div className="sticky  p-4 rounded-lg bg-primary-700 min-h-[365px] text-white top-[110px] shadow-2xl">
       <h4 className="text-xl font-semibold">Hľadať podľa kategorií</h4>
 
       <div>
-        <div className="flex flex-wrap py-6 space-x-2 dark:border-gray-400">
+        <div className="flex flex-wrap py-6 gap-4  dark:border-gray-400">
           {categories.map((category: Category, index: number) => {
             if (category.attributes.articles.data.length === 0) return null;
             return (
@@ -71,13 +70,12 @@ export default function ArticleSelect({
               return (
                 <li key={index}>
                   <Link
-                    
                     rel="noopener noreferrer"
                     href={`/blog/${params.category}/${article.attributes.slug}`}
                     className={`${
                       params.slug === article.attributes.slug &&
-                      "text-primary-700"
-                    }  hover:underline hover:text-primary-500 transition-colors duration-200`}
+                      "text-white font-bold underline"
+                    }  hover:underline hover:text-primary-500  transition-colors duration-200`}
                   >
                     {article.attributes.title}
                   </Link>

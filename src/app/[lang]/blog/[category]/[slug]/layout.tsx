@@ -1,6 +1,8 @@
 import ArticleSelect from "@/app/[lang]/components/ArticleSelect";
 import { fetchAPI } from "@/app/[lang]/utils/fetch-api";
 
+
+
 async function fetchSideMenuData(filter: string) {
   try {
     const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
@@ -12,20 +14,15 @@ async function fetchSideMenuData(filter: string) {
       options
     );
 
+
+    const filterParams = {populate: {fields: ["category"]} };
+
+
     const articlesResponse = await fetchAPI(
       "/articles",
-      filter
-        ? {
-            filters: {
-              category: {
-                name: filter,
-              },
-            },
-          }
-        : {},
+      { filters: {category: {slug: filter}}, ...filterParams},
       options
     );
-
     return {
       articles: articlesResponse.data,
       categories: categoriesResponse.data,
@@ -71,9 +68,8 @@ export default async function LayoutRoute({
 }) {
   const { category } = params;
   const { categories, articles } = (await fetchSideMenuData(category)) as Data;
-
   return (
-    <section className="container p-8 mx-auto space-y-6 sm:space-y-12">
+    <section className="container md:p-8 px-2 py-6 mx-auto space-y-6 sm:space-y-12">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-2 lg:gap-4">
         <div className="col-span-2">{children}</div>
         <aside>

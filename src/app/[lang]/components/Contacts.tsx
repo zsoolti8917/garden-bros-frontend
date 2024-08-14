@@ -52,7 +52,7 @@ const Contacts = ({
 }) => {
   return (
     
-      <div className='flex gap-6'>
+      <div className='flex gap-6 '>
         {contactLinks.map((contactLink: ContactLink, index: number) => (
         <ContactLinks key={index} url={contactLink.url} text={contactLink.text} type={contactLink.type} />
         ))  

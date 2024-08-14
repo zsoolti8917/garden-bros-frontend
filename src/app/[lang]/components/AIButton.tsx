@@ -9,9 +9,11 @@ interface AIButtonProps {
   newTab: boolean;
   type: 'primary' | 'secondary';
   name: string;
+  onClick?: () => void; // Add onClick prop
+
 }
 
-const AIButton: React.FC<AIButtonProps> = ({ url, newTab, type, name }) => {
+const AIButton: React.FC<AIButtonProps> = ({ url, newTab, type, name, onClick  }) => {
   // Determine button styles based on the type prop
   const buttonStyles =
     type === 'primary'
@@ -28,6 +30,9 @@ const AIButton: React.FC<AIButtonProps> = ({ url, newTab, type, name }) => {
           if (newTab) {
             e.preventDefault();
             window.open(url, '_blank', 'noopener,noreferrer');
+          }
+          if (onClick) {
+            onClick(); // Invoke onClick if provided
           }
         }}
       >

@@ -38,7 +38,6 @@ interface SluzbyProps {
 
 const FeatureCard: React.FC<Feature> = ({ title, description, icon, url, isLink }) => {
   const imgUrl = getStrapiMedia(icon.data.attributes.url);
-  console.log(url)
   const cardClasses = isLink
     ? "relative bg-white px-8 py-16 shadow-xl cursor-pointer flex flex-col items-center group overflow-hidden rounded transition-transform duration-300 hover:scale-105 h-[350px]"
     : "relative bg-white px-8 py-16 shadow-xl flex flex-col items-center overflow-hidden rounded h-[350px]";
@@ -70,9 +69,7 @@ const FeatureCard: React.FC<Feature> = ({ title, description, icon, url, isLink 
         </div>
         <p className={textClasses}>{title}</p>
         <p className={descriptionClasses}>{description}</p>
-        <span className="text-blue-500 mt-12 block z-10 group-hover:text-white transition-colors duration-300">
-          Kliknutím na kartu dozvediete viac
-        </span>
+
       </div>
     </Link>
   ) : (
@@ -96,7 +93,7 @@ const FeatureCard: React.FC<Feature> = ({ title, description, icon, url, isLink 
 // Sluzby component to render the feature list
 const Sluzby: React.FC<SluzbyProps> = ({ data }) => {
   return (
-    <section className='max-w-[1110px] mx-auto p-4'>
+    <section className='max-w-[1110px] mx-auto p-4 pb-20'>
       <div className="text-center mb-8">
         <h2 className="font-bold mb-4 text-primary-500">{data.titles}</h2>
         <p className='font-bold text-3xl text-primary-700 max-w-[350px] mx-auto'>{data.description}</p>

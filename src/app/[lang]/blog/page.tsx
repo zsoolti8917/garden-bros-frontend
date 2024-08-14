@@ -67,12 +67,13 @@ export default function Profile() {
   if (isLoading) return <Loader />;
 
   return (
-    <div>
-      <PageHeader heading="Naše projekty" text="Pozrite si na naše projekty" />
+    <div className="py-10 px-2 xl:px-0">
+      <div className="max-w-[1440px] mx-auto md:px-20">
+      <PageHeader heading="Naše projekty" text="Na tejto stránke si môžete prezrieť naše realizované projekty a inšpirovať sa našimi prácami. Kliknutím na obrázok jednotlivého projektu sa zobrazí podrobnejšie informácie o danom projekte." />
       <Blog data={data}>
         {meta!.pagination.start + meta!.pagination.limit <
           meta!.pagination.total && (
-          <div className="flex justify-center">
+          <div className="flex justify-center mt-10">
             <button
               type="button"
               className="px-6 py-3 text-sm rounded-lg hover:underline text-white bg-primary-500"
@@ -83,6 +84,8 @@ export default function Profile() {
           </div>
         )}
       </Blog>
+      </div>
+      
     </div>
   );
 }

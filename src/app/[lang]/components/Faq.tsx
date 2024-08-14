@@ -17,10 +17,13 @@ const TabsFAQ = ({ data }: { data: any }) => {
   }, {});
 
   return (
-    <section className="overflow-hidden px-4 py-12 min-h-[80vh] text-black">
+    <section className="overflow-hidden px-4 py-12 min-h-[80vh] text-black ">
+      <div className="max-w-[1440px] bg-white mx-auto lg:min-h-[70vh] pt-10 pb-10 rounded-2xl shadow-2xl">
       <Heading />
       <Tabs selected={selected} setSelected={setSelected} tabs={tabs} />
       <Questions selected={selected} questionsMap={questionsMap} />
+      </div>
+      
     </section>
   );
 };
@@ -29,10 +32,11 @@ const Heading = () => {
   return (
     <>
       <div className="relative z-10 flex flex-col items-center justify-center">
-        <span className="mb-8 bg-gradient-to-r from-primary-500 to-primary-700 bg-clip-text font-medium text-transparent">
-          Lets answer some questions
+      <h2 className="text-5xl text-center pb-10 text-primary-700 font-bold">Často Kladené Otázky (FAQ)</h2>
+        <span className="text-center  pb-10 mx-auto max-w-[800px]">
+        Na tejto stránke nájdete odpovede na najčastejšie otázky týkajúce sa našich služieb. Kliknutím na jednotlivé kategórie si môžete prezrieť najčastejšie otázky, a kliknutím na konkrétnu otázku sa zobrazí odpoveď.
         </span>
-        <span className="mb-8 text-5xl font-bold">FAQs</span>
+        
       </div>
 
 
@@ -92,7 +96,7 @@ const Questions = ({
     const questions = questionsMap[selected] || [];
   
     return (
-      <div className="mx-auto mt-12 max-w-3xl">
+      <div className="mx-auto mt-12 max-w-3xl px-2 lg:px-0">
         <AnimatePresence mode="wait">
           <motion.div
             key={selected} // Ensure a new key when selected changes

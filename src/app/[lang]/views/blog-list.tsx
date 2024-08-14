@@ -1,6 +1,10 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { getStrapiMedia, formatDate } from "../utils/api-helpers";
+import { motion } from "framer-motion";
+import { FiArrowUpRight } from "react-icons/fi";
 
 interface Article {
   id: number;
@@ -43,6 +47,87 @@ interface Article {
   };
 }
 
+const Card = ({
+  imageUrl,
+  authorsBio,
+  avatarUrl,
+  url,
+  title,
+  publishedAt,
+  description,
+  name,
+
+}: {
+  imageUrl: string;
+  
+  authorsBio: any;
+  avatarUrl: string;
+  url: string;
+  title: string;
+  publishedAt: string;
+  description: string;
+  name: string;
+}) => {
+  return (
+    <motion.div whileHover="hover" className="w-full h-[300px] relative shadow-2xl">
+      <Link href={url}
+        rel="nofollow"
+        className="">
+      <div className="bg-primary-700 h-full ">
+      
+              <div className=" text-white flex p-[19px] ">
+                <div>
+                <h3 className="text-2xl font-semibold group-hover:underline group-focus:underline">
+                  {title}
+                </h3>
+                <span className="text-xs dark:text-gray-400">
+                    {formatDate(publishedAt)}
+                  </span>
+
+                </div>
+
+
+
+                
+
+                
+                  
+
+                
+              </div>
+      </div>
+      <motion.div
+        initial={{
+          top: "0%",
+          right: "0%",
+        }}
+        variants={{
+          hover: {
+            top: "50%",
+            right: "50%",
+          },
+        }}
+        className="absolute inset-0 bg-slate-200 z-10"
+        style={{
+          backgroundImage: `url(${imageUrl})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
+      <div
+        className="w-1/2 h-1/2 absolute bottom-0 right-0 z-0 grid place-content-center bg-[#0000004e] text-white transition-colors"
+      >
+        
+        <div className="flex items-center">
+          <span className="text-xs">VIAC</span>
+          <FiArrowUpRight className="text-lg" />
+        </div>
+        </div>
+        </Link>
+    </motion.div>
+  );
+};
+
 export default function PostList({
   data: articles,
   children,
@@ -51,9 +136,9 @@ export default function PostList({
   children?: React.ReactNode;
 }) {
   return (
-    <section className="container p-6 mx-auto space-y-6 sm:space-y-12 text-white">
-      <div className="grid justify-center grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {articles.map((article) => {
+    <section className="pb-20">
+    <div className="xl:px-0 px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-[1440px] mx-auto ">
+    {articles.map((article, index: number) => {
           const imageUrl = getStrapiMedia(
             article.attributes.cover.data?.attributes.url
           );
@@ -64,54 +149,24 @@ export default function PostList({
           const avatarUrl = getStrapiMedia(
             authorsBio?.avatar.data.attributes.url
           );
-
           return (
-            <Link
-              href={`/blog/${category?.slug}/${article.attributes.slug}`}
-              key={article.id}
-              className="max-w-sm mx-auto group hover:no-underline focus:no-underline bg-primary-700 lg:w-[300px] xl:min-w-[375px] rounded-2xl overflow-hidden shadow-lg"
-            >
-              {imageUrl && (
-                <Image
-                  alt="presentation"
-                  width="240"
-                  height="240"
-                  className="object-cover w-full h-44 "
-                  src={imageUrl}
-                />
-              )}
-              <div className="p-6 space-y-2 relative">
-                {avatarUrl && (
-                  <Image
-                    alt="avatar"
-                    width="80"
-                    height="80"
-                    src={avatarUrl}
-                    className="rounded-full h-16 w-16 object-cover absolute -top-8 right-4"
-                  />
-                )}
-
-                <h3 className="text-2xl font-semibold group-hover:underline group-focus:underline">
-                  {article.attributes.title}
-                </h3>
-
-                <div className="flex justify-between items-center">
-                  <span className="text-xs dark:text-gray-400">
-                    {formatDate(article.attributes.publishedAt)}
-                  </span>
-                  {authorsBio && (
-                    <span className="text-xs dark:text-gray-400">
-                      {authorsBio.name}
-                    </span>
-                  )}
-                </div>
-                <p className="py-4">{article.attributes.description}</p>
-              </div>
-            </Link>
-          );
+            <Card
+            key={index}
+            imageUrl= {imageUrl|| ""}
+            authorsBio= {authorsBio}
+            avatarUrl= {avatarUrl|| ""}
+            url= {`/blog/${category?.slug}/${article.attributes.slug}`}
+            title= {article.attributes.title}
+            publishedAt= {article.attributes.publishedAt}
+            description = {article.attributes.description}
+            name = {authorsBio?.name}
+/>
+          )
         })}
-      </div>
-      {children && children}
-    </section>
+    
+    </div>
+    {children && children}
+  </section>
   );
-}
+}       
+

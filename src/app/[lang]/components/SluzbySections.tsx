@@ -4,14 +4,14 @@ import { getStrapiMedia } from '../utils/api-helpers';
 import RichText from './RichText';
 
 const SluzbySections = ({ data }: any) => {
-console.log(data)
 
 
 
   return (
-    <div className="container mx-auto px-4 py-10">
-      <h2 className='text-6xl text-center pb-8'>{data.title}</h2>
-      <p className='text-center pb-10'>{data.description}</p>
+    <section className='py-10'>
+    <div className="max-w-[1440px] mx-auto px-4 py-10 ">
+      <h2 className='text-5xl text-center pb-10 text-primary-700 font-bold'>{data.title}</h2>
+      <p className='text-center  pb-6 mx-auto max-w-[800px]'>{data.description}</p>
       {data.sluzbySections.map((section: any) => { // Remove the unused index parameter
 
         // Use getStrapiMedia to get the correct image URL
@@ -43,6 +43,8 @@ console.log(data)
       })}
       
     </div>
+    </section>
+
   );
 };
 

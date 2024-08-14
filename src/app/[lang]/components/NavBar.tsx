@@ -6,6 +6,7 @@ import { SolarHamburgerMenuOutline } from "./Icons/Hamburger";
 import { MaterialSymbolsClose } from "./Icons/Close";
 import Logo from "./Logo";
 import AIButton from './AIButton';
+
 interface NavLink {
   id: number;
   url: string;
@@ -35,6 +36,10 @@ const NavBar = ({
   logoLink: string;
 }) => {
   const [open, setOpen] = useState(false);
+
+  const handleLinkClick = () => {
+    setOpen(false);
+  };
   return (
     <>
       {/* Spacer to prevent content from shifting */}
@@ -45,10 +50,10 @@ const NavBar = ({
           onClick={() => setOpen(false)}
         ></div>
 
-        <div className='md:flex items-center justify-between px-4 py-4 max-w-container m-auto md:px-8'>
+        <div className='md:flex items-center justify-between px-4 max-w-container m-auto md:px-8'>
           <div className='font-bold text-xl cursor-pointer flex items-center text-white'>
-            <Link href='/'>
-              <Logo logoUrl={logoUrl} logoText={logoText} logoLink={logoLink}>
+            <Link href='/' onClick={handleLinkClick}>
+              <Logo logoUrl={logoUrl} logoText={logoText}>
                 {logoText && <h2 className="text-white">{logoText}</h2>}
               </Logo>
             </Link>
@@ -56,36 +61,43 @@ const NavBar = ({
 
           <div
             onClick={() => setOpen(!open)}
-            className='text-3xl z-30 absolute right-8 sm:top-9 top-6 cursor-pointer  md:hidden text-white'
+            className='text-3xl z-30 absolute right-8  top-8 cursor-pointer  md:hidden text-white'
           >
             {open ? <MaterialSymbolsClose className='text-white' /> : <SolarHamburgerMenuOutline className='text-white' />}
           </div>
 
           <ul
-            className={`md:flex md:gap-8 md:items-center md:justify-center pt-16 md:pt-0 md:flex-row md:pb-0 pb-12 fixed md:static bg-primary-700 md:z-auto z-20 top-0 ${open ? 'right-0 h-screen' : '-right-full'} w-[75%] md:w-auto md:pl-0 pl-9 transition-all duration-500 ease-in-out`}
+            className={`md:flex md:gap-8 md:items-center md:justify-center pt-16 md:pt-0 md:flex-row md:pb-0 pb-12 fixed md:static bg-primary-700 md:z-auto z-20 top-0 ${open ? 'right-0 h-screen pt-24' : 'md:h-auto h-screen -right-full'} w-[75%] md:w-auto md:pl-0 pl-9 transition-all duration-500 ease-in-out`}
           >
-            {navLinks.map((link: NavLink) => (
-              <li key={link.id} className=' text-white text-lg md:my-0 my-7 pb-6 md:pb-0 transition transform hover:scale-105 hover:text-green-500'>
-                <Link 
-                  href={link.url} 
-                  className=''
+ {navLinks.map((link: NavLink) => {
+              // Adjust link.url if needed (e.g., add locale prefix)
+              return (
+                <li 
+                  key={link.id} 
+                  className={`text-lg md:my-0 my-7 pb-6 md:pb-0 transition transform hover:scale-105 text-white hover:text-green-500 `}
                 >
-                  {link.text}
-                </Link>
-              </li>
-            ))}
+                  <Link 
+                    href={link.url} 
+                    className='block'
+                    onClick={handleLinkClick}
+                  >
+                    {link.text}
+                  </Link>
+                </li>
+              );
+            })}
             <li className='text-lg'>
             <AIButton 
-          url={ctaButton.url}
-          newTab={ctaButton.newTab}
-          type={ctaButton.type}
-          name={ctaButton.text}
-        />
+                url={ctaButton.url}
+                newTab={ctaButton.newTab}
+                type={ctaButton.type}
+                name={ctaButton.text}
+                onClick={handleLinkClick} // Close the menu on CTA button click
+              />
             </li>
           </ul>
         </div>
       </div>
-
       {/* The rest of the page content */}
       {/* Add a placeholder to ensure layout consistency */}
       <div style={{ height: 'var(--navbar-height)' }}></div>

@@ -50,7 +50,7 @@ function Feature({title,description,icon}: Feature) {
   return (
 
 
-    <div className="bg-white p-8 shadow-xl flex flex-col gap-4 items-center">
+    <div className="bg-white md:p-8 p-4 shadow-xl flex flex-col gap-4 items-center">
       <div className="bg-green-100 rounded-full p-2">
         <Image 
           src={imgUrl || ""} 
@@ -67,11 +67,11 @@ function Feature({title,description,icon}: Feature) {
 
 const Corp = ({data}: CorpProps) => {
   return (
-    <section className='max-w-[1110px] mx-auto flex justify-between mb-16'>
+    <section className='max-w-[1110px] mx-auto px-4 xl:px-0 grid grid-cols-2 justify-between mb-16 text-center md:text-left '>
       
 
       
-      <div className='w-1/2 flex flex-col gap-4 pr-10 justify-center'>
+      <div className='w-ful flex flex-col gap-4 md:pr-10 justify-center col-span-2 md:col-span-1 pb-8 md:pb-0'>
         <p className='text-primary-500 font-bold text-xl'>{data.smallText}</p>
         <h2 className='text-primary-700 font-bold text-3xl'>{data.header}</h2>
         <p>{data.body}</p>
@@ -82,7 +82,7 @@ const Corp = ({data}: CorpProps) => {
           name={data.button.text}
         />
       </div>
-      <div className="grid grid-cols-2 grid-rows-2 gap-6 w-1/2">
+      <div className="grid grid-cols-2 grid-rows-2 gap-6 w-full col-span-2 md:col-span-1">
         {data.features.map((feature: Feature, index: number) => (
           <div key={index} className={index === 1 ? "row-span-3 self-center mb-10" : ""}>
             <Feature {...feature} />
