@@ -41,7 +41,12 @@ async function getGlobal(lang: string): Promise<any> {
     ],
     locale: lang,
   };
-  return await fetchAPI(path, urlParamsObject, options);
+  try {
+    return await fetchAPI(path, urlParamsObject, options);
+  } catch (error) {
+    console.error("Failed to fetch global data:", error);
+    return { data: null }; // Return empty data if there's an error
+  }
 }
 
 export async function generateMetadata({ params } : { params: {lang: string}}): Promise<Metadata> {
@@ -70,8 +75,18 @@ export default async function RootLayout({
 }) {
   const global = await getGlobal(params.lang);
   // TODO: CREATE A CUSTOM ERROR PAGE
-  if (!global.data) return null;
-  
+  if (!global.data) {
+    return (
+      <html lang={params.lang}>
+        <body>
+          <div className="error-page">
+            <h1>Error: Data could not be loaded.</h1>
+            <p>Please try again later or contact support.</p>
+          </div>
+        </body>
+      </html>
+    );
+  }
   const { navbar, footer, headerInfo, footerInfo } = global.data.attributes;
 
 const navBarLogoUrl = getStrapiMedia(navbar.navbarLogo.logoImg.data?.attributes.url);
