@@ -5,6 +5,7 @@ This repository contains the frontend code for the Garden Bros website, a multil
 ## Live Website
 
 Visit the live website at: [https://www.gardenbros.sk](https://www.gardenbros.sk)
+visit the backend for this website: [https://www.gardenbros.sk](https://github.com/zsoolti8917/garden-bros-backend)
 
 ## Features
 
@@ -19,7 +20,12 @@ Visit the live website at: [https://www.gardenbros.sk](https://www.gardenbros.sk
 ## Technology Stack
 
 - Next.js
-- [Add any other relevant frontend libraries/frameworks]
+- Strapi CMS
+- TailwindCSS
+- Framer Motion
+- VPS
+- Dokku
+- PostgreSQL
 
 ## Setup and Installation
 
