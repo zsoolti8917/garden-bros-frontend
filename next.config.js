@@ -6,7 +6,13 @@ const nextConfig = {
         {
           protocol: 'http',
           hostname: 'localhost',
-          port: '1338',
+          port: '1337',
+          pathname: '/uploads/**',
+        },
+        {
+          protocol: 'http',
+          hostname: 'admin.gardenbros.sk',
+          port: '1337',
           pathname: '/uploads/**',
         },
         {
