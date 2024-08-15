@@ -4,14 +4,8 @@ const nextConfig = {
     images: {
       remotePatterns: [
         {
-          protocol: 'http',
-          hostname: 'localhost',
-          port: '1337',
-          pathname: '/uploads/**',
-        },
-        {
-          protocol: 'http',
-          hostname: 'admin.gardenbros.sk',
+          protocol: 'https',
+          hostname: '194.182.77.54:1337',
           port: '1337',
           pathname: '/uploads/**',
         },
