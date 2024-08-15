@@ -5,7 +5,7 @@ const nextConfig = {
       remotePatterns: [
         {
           protocol: 'https',
-          hostname: '194.182.77.54:1337',
+          hostname: 'admin.gardenbros.sk',
           port: '1337',
           pathname: '/uploads/**',
         },
