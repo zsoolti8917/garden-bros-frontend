@@ -5,7 +5,7 @@ This repository contains the frontend code for the Garden Bros website, a multil
 ## Live Website
 
 Visit the live website at: [https://www.gardenbros.sk](https://www.gardenbros.sk)
-visit the backend for this website: [https://www.gardenbros.sk](https://github.com/zsoolti8917/garden-bros-backend)
+visit the backend for this website: [gardenbros-backend](https://github.com/zsoolti8917/garden-bros-backend)
 
 ## Features
 
