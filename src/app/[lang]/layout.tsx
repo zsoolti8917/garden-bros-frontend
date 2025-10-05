@@ -1,120 +1,53 @@
 import type { Metadata } from "next";
-import "./globals.css";
-import { getStrapiMedia, getStrapiURL } from "./utils/api-helpers";
-import { fetchAPI } from "./utils/fetch-api";
+import { Inter } from 'next/font/google'
+import '../globals.css'
+import type { Locale } from '@/types/content'
+import { isValidLocale, locales, getTranslation, t } from '@/lib/i18n'
+import Header from '@/components/navigation/Header'
+import Footer from '@/components/footer/Footer'
 
-import { i18n } from "../../../i18n-config";
-import NavBar from "./components/NavBar";
-import Footer from "./components/Footer";
-import HeaderInfo from "./components/HeaderInfo";
-import FooterInfo from "./components/FooterInfo";
-import {FALLBACK_SEO} from "@/app/[lang]/utils/constants";
-import { get } from "http";
+const inter = Inter({ subsets: ['latin'] })
 
-async function getGlobal(lang: string): Promise<any> {
-  const token = process.env.NEXT_PUBLIC_STRAPI_API_TOKEN;
-
-  if (!token) throw new Error("The Strapi API Token environment variable is not set.");
-
-  const path = `/global`;
-  const options = { headers: { Authorization: `Bearer ${token}` } };
-
-  const urlParamsObject = {
-    populate: [
-      "metadata.shareImage",
-      "favicon",
-      "navbar.links",
-      "navbar.button",
-      "navbar.navbarLogo",
-      "navbar.navbarLogo.logoImg",
-      "footer.adresa",
-      "footer.sluzby",
-      "footer.sluzby.categories",
-      "footer.ro",
-      "headerInfo",
-      "headerInfo.contacts",
-      "headerInfo.socials",
-      "footerInfo",
-      "footerInfo.legalLinks",
-      "footer.mapUrl",
-      "footer.rotitle",
-    ],
-    locale: lang,
-  };
-  return await fetchAPI(path, urlParamsObject, options);
-
-}
-
-export async function generateMetadata({ params } : { params: {lang: string}}): Promise<Metadata> {
-  const meta = await getGlobal(params.lang);
-
-  if (!meta.data) return FALLBACK_SEO;
-
-  const { metadata, favicon } = meta.data.attributes;
-  const { url } = favicon.data.attributes;
+export async function generateMetadata({ params }: { params: { lang: string } }): Promise<Metadata> {
+  const locale = isValidLocale(params.lang) ? params.lang : 'sk'
+  const dict = getTranslation(locale)
 
   return {
-    title: metadata.metaTitle,
-    description: metadata.metaDescription,
-    icons: {
-      icon: [new URL(url, getStrapiURL())],
+    title: 'Garden Bros - Professional Garden Care',
+    description: t(dict, 'footer.description'),
+    keywords: ['garden', 'lawn care', 'landscaping', 'Bratislava', 'gardening'],
+    openGraph: {
+      title: 'Garden Bros - Professional Garden Care',
+      description: t(dict, 'footer.description'),
+      type: 'website',
+      locale: locale === 'sk' ? 'sk_SK' : locale === 'hu' ? 'hu_HU' : 'en_US',
+      siteName: 'Garden Bros',
     },
-  };
+  }
 }
 
-export default async function RootLayout({
+export default async function LocaleLayout({
   children,
   params,
 }: {
   readonly children: React.ReactNode;
   readonly params: { lang: string };
 }) {
-  const global = await getGlobal(params.lang);
-  // TODO: CREATE A CUSTOM ERROR PAGE
-  if (!global.data) return null;
+  const locale = isValidLocale(params.lang) ? params.lang : 'sk'
 
-  const { navbar, footer, headerInfo, footerInfo } = global.data.attributes;
-
-const navBarLogoUrl = getStrapiMedia(navbar.navbarLogo.logoImg.data?.attributes.url);
   return (
-    <html lang={params.lang}>
-      <body>
-        <HeaderInfo 
-        socialsText={headerInfo.socialsText}
-        socialLinks={headerInfo.socials}
-        contactLinks={headerInfo.contacts}
-        />
-        <NavBar 
-        logoUrl={navBarLogoUrl || ""}
-        logoLink={navbar.navbarLogo.url}
-        logoText={navbar.navbarLogo.logoText}
-        ctaButton={navbar.button}
-        navLinks={navbar.links}
-        />
-
-        
-        <main className="min-h-[80vh] bg-[#ebf9eb]">{children}</main>
-
-        <Footer 
-        footerAdresa = {footer.adresa}
-        footerSluzby = {footer.sluzby}
-        footerRo = {footer.ro}
-        footerKategorie = {footer.sluzby.categories}
-        footerSocials = {headerInfo.socials}
-        footerContacts = {headerInfo.contacts}
-        socialText={headerInfo.socialsText}
-        footerMap={footer.mapUrl}
-        roTitle={footer.rotitle}
-        />
-        <FooterInfo 
-        footerInfo={footerInfo}
-        footerLinks={footerInfo.legalLinks}
-        /> 
+    <html lang={locale} className="h-full">
+      <body className={`${inter.className} h-full flex flex-col`}>
+        <Header locale={locale} />
+        <main className="flex-1 bg-white">
+          {children}
+        </main>
+        <Footer locale={locale} />
       </body>
     </html>
   );
 }
 
 export async function generateStaticParams() {
-  return i18n.locales.map((locale) => ({ lang: locale }));
+  return locales.map((locale) => ({ lang: locale }));
 }

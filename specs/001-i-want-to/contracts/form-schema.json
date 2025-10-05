@@ -1,0 +1,176 @@
+{
+  "contactForm": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "minLength": 2,
+        "maxLength": 100,
+        "required": true,
+        "description": "Full name of the person contacting"
+      },
+      "email": {
+        "type": "string",
+        "format": "email",
+        "required": true,
+        "description": "Contact email address"
+      },
+      "phone": {
+        "type": "string",
+        "pattern": "^[+]?[1-9]?[0-9]{7,15}$",
+        "required": false,
+        "description": "Optional phone number"
+      },
+      "serviceType": {
+        "type": "string",
+        "enum": ["lawn-care", "garden-design", "tree-services", "maintenance", "consultation", "other"],
+        "required": true,
+        "description": "Type of service requested"
+      },
+      "message": {
+        "type": "string",
+        "minLength": 10,
+        "maxLength": 1000,
+        "required": true,
+        "description": "Detailed message about the service request"
+      },
+      "propertySize": {
+        "type": "string",
+        "enum": ["small", "medium", "large", "commercial"],
+        "required": false,
+        "description": "Approximate size of property"
+      },
+      "urgency": {
+        "type": "string",
+        "enum": ["low", "medium", "high", "emergency"],
+        "default": "medium",
+        "description": "Urgency level of the request"
+      },
+      "preferredContact": {
+        "type": "string",
+        "enum": ["email", "phone", "either"],
+        "default": "either",
+        "description": "Preferred method of contact"
+      },
+      "consent": {
+        "type": "boolean",
+        "required": true,
+        "const": true,
+        "description": "Consent to data processing and contact"
+      },
+      "honeypot": {
+        "type": "string",
+        "maxLength": 0,
+        "description": "Spam prevention field - should remain empty"
+      }
+    }
+  },
+  "quoteForm": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "minLength": 2,
+        "maxLength": 100,
+        "required": true
+      },
+      "email": {
+        "type": "string",
+        "format": "email",
+        "required": true
+      },
+      "phone": {
+        "type": "string",
+        "pattern": "^[+]?[1-9]?[0-9]{7,15}$",
+        "required": true
+      },
+      "address": {
+        "type": "string",
+        "minLength": 10,
+        "maxLength": 200,
+        "required": true,
+        "description": "Property address for service"
+      },
+      "serviceTypes": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": ["lawn-care", "garden-design", "tree-services", "maintenance", "landscaping", "irrigation"]
+        },
+        "minItems": 1,
+        "required": true,
+        "description": "Types of services requested"
+      },
+      "projectDescription": {
+        "type": "string",
+        "minLength": 20,
+        "maxLength": 2000,
+        "required": true,
+        "description": "Detailed description of the project"
+      },
+      "budget": {
+        "type": "string",
+        "enum": ["under-1000", "1000-5000", "5000-10000", "10000-25000", "25000-plus", "discuss"],
+        "required": false,
+        "description": "Approximate project budget"
+      },
+      "timeline": {
+        "type": "string",
+        "enum": ["asap", "1-month", "3-months", "6-months", "flexible"],
+        "required": true,
+        "description": "Desired project timeline"
+      },
+      "propertyImages": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "format": "uri"
+        },
+        "maxItems": 10,
+        "description": "Optional property images"
+      },
+      "consent": {
+        "type": "boolean",
+        "required": true,
+        "const": true
+      },
+      "honeypot": {
+        "type": "string",
+        "maxLength": 0
+      }
+    }
+  },
+  "newsletterForm": {
+    "type": "object",
+    "properties": {
+      "email": {
+        "type": "string",
+        "format": "email",
+        "required": true
+      },
+      "name": {
+        "type": "string",
+        "minLength": 2,
+        "maxLength": 100,
+        "required": false
+      },
+      "interests": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": ["lawn-care", "garden-design", "seasonal-tips", "plant-care", "landscaping"]
+        },
+        "description": "Areas of interest for newsletter content"
+      },
+      "consent": {
+        "type": "boolean",
+        "required": true,
+        "const": true
+      },
+      "honeypot": {
+        "type": "string",
+        "maxLength": 0
+      }
+    }
+  }
+}

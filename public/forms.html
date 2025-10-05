@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Static Forms for Netlify</title>
+</head>
+<body style="display: none;">
+  <!-- This file contains static forms for Netlify to detect -->
+  <!-- These forms are hidden and only used for form detection -->
+
+  <!-- Contact Form -->
+  <form name="contact" netlify netlify-honeypot="honeypot" hidden>
+    <input type="text" name="name" />
+    <input type="email" name="email" />
+    <input type="tel" name="phone" />
+    <select name="serviceType">
+      <option value="lawn-care">Lawn Care</option>
+      <option value="garden-design">Garden Design</option>
+      <option value="tree-services">Tree Services</option>
+      <option value="maintenance">Maintenance</option>
+      <option value="consultation">Consultation</option>
+      <option value="other">Other</option>
+    </select>
+    <textarea name="message"></textarea>
+    <select name="propertySize">
+      <option value="small">Small</option>
+      <option value="medium">Medium</option>
+      <option value="large">Large</option>
+      <option value="commercial">Commercial</option>
+    </select>
+    <select name="urgency">
+      <option value="low">Low</option>
+      <option value="medium">Medium</option>
+      <option value="high">High</option>
+      <option value="emergency">Emergency</option>
+    </select>
+    <select name="preferredContact">
+      <option value="email">Email</option>
+      <option value="phone">Phone</option>
+      <option value="either">Either</option>
+    </select>
+    <input type="checkbox" name="consent" />
+    <input type="text" name="honeypot" style="display: none;" />
+  </form>
+
+  <!-- Quote Form -->
+  <form name="quote" netlify netlify-honeypot="honeypot" hidden>
+    <input type="text" name="name" />
+    <input type="email" name="email" />
+    <input type="tel" name="phone" />
+    <input type="text" name="address" />
+    <input type="text" name="serviceTypes" />
+    <textarea name="projectDescription"></textarea>
+    <select name="budget">
+      <option value="under-1000">Under €1,000</option>
+      <option value="1000-5000">€1,000 - €5,000</option>
+      <option value="5000-10000">€5,000 - €10,000</option>
+      <option value="10000-25000">€10,000 - €25,000</option>
+      <option value="25000-plus">€25,000+</option>
+      <option value="discuss">Let's Discuss</option>
+    </select>
+    <select name="timeline">
+      <option value="asap">ASAP</option>
+      <option value="1-month">Within 1 Month</option>
+      <option value="3-months">Within 3 Months</option>
+      <option value="6-months">Within 6 Months</option>
+      <option value="flexible">Flexible</option>
+    </select>
+    <input type="file" name="propertyImage0" />
+    <input type="file" name="propertyImage1" />
+    <input type="file" name="propertyImage2" />
+    <input type="file" name="propertyImage3" />
+    <input type="file" name="propertyImage4" />
+    <input type="file" name="propertyImage5" />
+    <input type="file" name="propertyImage6" />
+    <input type="file" name="propertyImage7" />
+    <input type="file" name="propertyImage8" />
+    <input type="file" name="propertyImage9" />
+    <input type="checkbox" name="consent" />
+    <input type="text" name="honeypot" style="display: none;" />
+  </form>
+
+  <!-- Newsletter Form -->
+  <form name="newsletter" netlify netlify-honeypot="honeypot" hidden>
+    <input type="email" name="email" />
+    <input type="text" name="name" />
+    <input type="text" name="interests" />
+    <input type="checkbox" name="consent" />
+    <input type="text" name="honeypot" style="display: none;" />
+  </form>
+</body>
+</html>

@@ -1,0 +1,102 @@
+# Netlify CMS Configuration Schema
+# Static site content management contracts
+
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "public/images"
+public_folder: "/images"
+
+collections:
+  - name: "services"
+    label: "Services"
+    folder: "content/services"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string", required: true}
+      - {label: "Description", name: "description", widget: "markdown", required: true}
+      - {label: "Pricing", name: "pricing", widget: "text", required: false}
+      - {label: "Category", name: "category", widget: "select", options: ["lawn-care", "garden-design", "tree-services", "maintenance"], required: true}
+      - {label: "Featured", name: "featured", widget: "boolean", default: false}
+      - {label: "Images", name: "images", widget: "list", field: {label: "Image", name: "image", widget: "image"}}
+      - {label: "SEO Title", name: "metaTitle", widget: "string", required: false}
+      - {label: "SEO Description", name: "metaDescription", widget: "text", required: false}
+      - {label: "Language", name: "locale", widget: "select", options: ["sk", "hu", "en"], default: "sk"}
+
+  - name: "portfolio"
+    label: "Portfolio"
+    folder: "content/portfolio"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string", required: true}
+      - {label: "Description", name: "description", widget: "markdown", required: true}
+      - {label: "Before Images", name: "beforeImages", widget: "list", field: {label: "Image", name: "image", widget: "image"}, min: 1}
+      - {label: "After Images", name: "afterImages", widget: "list", field: {label: "Image", name: "image", widget: "image"}, min: 1}
+      - {label: "Gallery Images", name: "galleryImages", widget: "list", field: {label: "Image", name: "image", widget: "image"}, required: false}
+      - {label: "Client Testimonial", name: "clientTestimonial", widget: "text", required: false}
+      - {label: "Completion Date", name: "completionDate", widget: "date", required: true}
+      - {label: "Service Category", name: "serviceCategory", widget: "relation", collection: "services", search_fields: ["title"], value_field: "slug", display_fields: ["title"]}
+      - {label: "Featured", name: "featured", widget: "boolean", default: false}
+      - {label: "Location", name: "location", widget: "string", required: false}
+      - {label: "Language", name: "locale", widget: "select", options: ["sk", "hu", "en"], default: "sk"}
+
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "content/blog"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    fields:
+      - {label: "Title", name: "title", widget: "string", required: true}
+      - {label: "Content", name: "content", widget: "markdown", required: true}
+      - {label: "Excerpt", name: "excerpt", widget: "text", required: true}
+      - {label: "Author", name: "author", widget: "string", required: true}
+      - {label: "Publish Date", name: "publishDate", widget: "date", required: true}
+      - {label: "Tags", name: "tags", widget: "list", field: {label: "Tag", name: "tag", widget: "string"}}
+      - {label: "Featured Image", name: "featuredImage", widget: "image", required: true}
+      - {label: "Published", name: "published", widget: "boolean", default: false}
+      - {label: "SEO Title", name: "metaTitle", widget: "string", required: false}
+      - {label: "SEO Description", name: "metaDescription", widget: "text", required: false}
+      - {label: "Language", name: "locale", widget: "select", options: ["sk", "hu", "en"], default: "sk"}
+
+  - name: "business"
+    label: "Business Information"
+    files:
+      - label: "Company Info"
+        name: "company"
+        file: "content/business/company-info.md"
+        fields:
+          - {label: "Company Name", name: "companyName", widget: "string", required: true}
+          - {label: "Description", name: "description", widget: "markdown", required: true}
+          - {label: "Address", name: "address", widget: "text", required: true}
+          - {label: "Phone", name: "phone", widget: "string", required: true}
+          - {label: "Email", name: "email", widget: "string", required: true}
+          - {label: "Operating Hours", name: "operatingHours", widget: "object", fields: [
+              {label: "Monday", name: "monday", widget: "string"},
+              {label: "Tuesday", name: "tuesday", widget: "string"},
+              {label: "Wednesday", name: "wednesday", widget: "string"},
+              {label: "Thursday", name: "thursday", widget: "string"},
+              {label: "Friday", name: "friday", widget: "string"},
+              {label: "Saturday", name: "saturday", widget: "string"},
+              {label: "Sunday", name: "sunday", widget: "string"}
+            ]}
+          - {label: "Social Media", name: "socialMedia", widget: "object", fields: [
+              {label: "Facebook", name: "facebook", widget: "string", required: false},
+              {label: "Instagram", name: "instagram", widget: "string", required: false},
+              {label: "LinkedIn", name: "linkedin", widget: "string", required: false}
+            ]}
+          - {label: "Logo", name: "logo", widget: "image", required: true}
+
+      - label: "Team Members"
+        name: "team"
+        file: "content/business/team-members.md"
+        fields:
+          - {label: "Team Members", name: "teamMembers", widget: "list", fields: [
+              {label: "Name", name: "name", widget: "string", required: true},
+              {label: "Position", name: "position", widget: "string", required: true},
+              {label: "Bio", name: "bio", widget: "text", required: false},
+              {label: "Photo", name: "photo", widget: "image", required: false},
+              {label: "Email", name: "email", widget: "string", required: false}
+            ]}
