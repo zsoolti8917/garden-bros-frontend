@@ -1,135 +1,169 @@
 'use client';
 
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import AIButton from './AIButton';
+import { FormEvent, useState } from 'react';
+
+const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
+const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? '';
+
+type SubmissionStatus = 'idle' | 'success' | 'error';
 
 const ContactForm = () => {
+  const [status, setStatus] = useState<SubmissionStatus>('idle');
+  const [feedback, setFeedback] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const initialValues = {
-        name: '',
-        email: '',
-        phone: '',
-        company: '',
-        services: '', // Assuming a dropdown or similar selection
-        budget: '',   // Assuming a dropdown or similar selection
-        projectDescription: ''
-    };
+  const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitting(true);
+    setStatus('idle');
+    setFeedback('');
 
-    const validationSchema = Yup.object({
-        name: Yup.string().required('Required'),
-        email: Yup.string().email('Invalid email address').required('Required'),
-        phone: Yup.string().required('Required'),
-        company: Yup.string(), // Optional
-        services: Yup.string().required('Required'),
-        budget: Yup.string().required('Required'),
-        projectDescription: Yup.string()
-    });
+    if (!WEB3FORMS_ACCESS_KEY) {
+      setStatus('error');
+      setFeedback('Konfigurácia formulára nie je kompletná. Kontaktujte prosím administrátora.');
+      setIsSubmitting(false);
+      return;
+    }
 
-    const handleSubmit = async (values: any, { setSubmitting, resetForm }: any) => {
-        try {
-            const response = await fetch('/api/sendEmail', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(values),
-            });
-    
-            if (!response.ok) {
-                throw new Error('Network response was not ok.');
-            }
-    
-            const result = await response.json();
-            console.log(result.message); // For debugging
-    
-            resetForm();
-        } catch (error) {
-            console.error('Error submitting form:', error);
-        } finally {
-            setSubmitting(false);
-        }
-    };
-    
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+    formData.append('access_key', WEB3FORMS_ACCESS_KEY);
 
-    return (
-        <div className="bg-white shadow-2xl p-8 rounded-lg"> {/* Background color and padding */}
-            <Formik
-                initialValues={initialValues}
-                validationSchema={validationSchema}
-                onSubmit={handleSubmit}
-            >
-                {({ isSubmitting }) => (
-                  <Form>   
+    try {
+      const response = await fetch(WEB3FORMS_ENDPOINT, {
+        method: 'POST',
+        body: formData,
+      });
 
-                  {/* Name */}
-                  <div className="mb-4">
-                      <label htmlFor="name" className="block text-primary-700 text-sm font-bold mb-2">Meno a priezvisko:</label>
-                      <Field type="text" id="name" name="name" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight   
-focus:outline-none focus:shadow-outline" />
-                      <ErrorMessage name="name" component="div" className="text-red-500 text-xs mt-1" />
-                  </div>   
+      const data = await response.json();
 
+      if (data.success) {
+        setStatus('success');
+        setFeedback('Ďakujeme! Vaša správa bola úspešne odoslaná.');
+        form.reset();
+      } else {
+        setStatus('error');
+        setFeedback(data.message || 'Odoslanie zlyhalo. Skúste to prosím znova.');
+      }
+    } catch (error) {
+      console.error('Web3Forms submission failed:', error);
+      setStatus('error');
+      setFeedback('Pri odosielaní nastala neočakávaná chyba. Skúste to neskôr.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
-                  {/* Email */}
-                  <div className="mb-4">
-                      <label htmlFor="email" className="block text-primary-700 text-sm font-bold mb-2">Email:</label>
-                      <Field type="email" id="email" name="email" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight   
-focus:outline-none focus:shadow-outline" />
-                      <ErrorMessage name="email" component="div" className="text-red-500 text-xs mt-1"   
-/>
-                  </div>
-
-                  {/* Phone */}
-                  <div className="mb-4">
-                      <label htmlFor="phone" className="block text-primary-700 text-sm font-bold mb-2">Telefónne číslo:</label>
-                      <Field type="tel" id="phone" name="phone" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none   
-focus:shadow-outline" />
-                      <ErrorMessage name="phone" component="div" className="text-red-500 text-xs   
-mt-1" />
-                  </div>
-
-                  {/* Company (Optional) */}
-                  <div className="mb-4">
-                      <label htmlFor="company" className="block text-primary-700 text-sm font-bold mb-2">Firma (Nepovinný)</label>
-                      <Field type="text" id="company" name="company" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" />
-                  </div>
-
-                  {/* Services */}
-                  <div className="mb-4">   
-
-                      <label htmlFor="services" className="block text-primary-700 text-sm font-bold mb-2">O aké služby máte záujem?</label>
-                      {/* Replace this with your actual dropdown or selection component */}
-                      <Field as="select" id="services" name="services" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none   
-focus:shadow-outline">
-                          <option   
-value="">Vyberte si zo zoznamu</option>
-                          {/* Add your service options here */}
-                      </Field>
-                      <ErrorMessage name="services" component="div" className="text-red-500 text-xs mt-1" />
-                  </div>
-
-
-                  {/* Project Description */}
-                  <div className="mb-4">
-                      <label htmlFor="projectDescription" className="block text-primary-700 text-sm font-bold mb-2">Stručne opíšte projekt (Nepovinný)</label>
-                      <Field as="textarea" id="projectDescription" name="projectDescription" className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" rows="4" />
-                      <ErrorMessage   
-name="projectDescription" component="div" className="text-red-500 text-xs mt-1" />
-                  </div>
-
-                  <button type="submit" disabled={isSubmitting} className="bg-primary-700 hover:bg-primary-500 text-white font-bold py-2 px-4 rounded   
-focus:outline-none focus:shadow-outline">
-                      Poslať správu
-                  </button>
-
-                  
-              </Form>   
-
-                )}
-            </Formik>
+  return (
+    <div className="bg-white shadow-2xl p-8 rounded-lg">
+      <form onSubmit={onSubmit} className="space-y-4">
+        <div>
+          <label htmlFor="name" className="block text-primary-700 text-sm font-bold mb-2">
+            Meno a priezvisko:
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
         </div>
-    );
+
+        <div>
+          <label htmlFor="email" className="block text-primary-700 text-sm font-bold mb-2">
+            Email:
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="phone" className="block text-primary-700 text-sm font-bold mb-2">
+            Telefónne číslo:
+          </label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="company" className="block text-primary-700 text-sm font-bold mb-2">
+            Firma (nepovinné):
+          </label>
+          <input
+            type="text"
+            id="company"
+            name="company"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="services" className="block text-primary-700 text-sm font-bold mb-2">
+            O aké služby máte záujem?
+          </label>
+          <input
+            type="text"
+            id="services"
+            name="services"
+            placeholder="Napíšte, o čo máte záujem"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="budget" className="block text-primary-700 text-sm font-bold mb-2">
+            Aký máte rozpočet? (nepovinné)
+          </label>
+          <input
+            type="text"
+            id="budget"
+            name="budget"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="message" className="block text-primary-700 text-sm font-bold mb-2">
+            Stručne opíšte projekt (nepovinné):
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            rows={4}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+        </div>
+
+        <button
+          type="submit"
+          disabled={isSubmitting}
+          className="bg-primary-700 hover:bg-primary-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:opacity-60 disabled:cursor-not-allowed"
+        >
+          {isSubmitting ? 'Odosielam…' : 'Poslať správu'}
+        </button>
+
+        {feedback && (
+          <p
+            className={`text-sm pt-2 ${
+              status === 'success' ? 'text-green-600' : 'text-red-600'
+            }`}
+          >
+            {feedback}
+          </p>
+        )}
+      </form>
+    </div>
+  );
 };
 
 export default ContactForm;
