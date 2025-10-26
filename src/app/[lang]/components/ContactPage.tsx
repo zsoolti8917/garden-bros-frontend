@@ -87,9 +87,9 @@ const ContactPage = ({data}: any) => {
 
   return (
     <section className='h-full pb-20 pt-10 '>
-      <div className='max-w-[1440px] pt-10 px-10 pb-20  mx-auto grid grid-flow-row grid-cols-3 grid-rows-auto gap-y-16 '>
+      <div className='max-w-[1440px] pt-10 px-6 sm:px-10 pb-20 mx-auto grid grid-flow-row grid-cols-1 md:grid-cols-3 gap-y-16 md:gap-x-8'>
       
-          <div className='md:col-span-2 col-span-3'>
+          <div className='md:col-span-2'>
             <h2 className='text-6xl font-bold text-primary-700 pb-8'>{data.title}</h2>
             <p className=''>{data.description}</p>
 
@@ -101,11 +101,11 @@ const ContactPage = ({data}: any) => {
         
 
 
-        <div className='md:col-span-2 col-span-3 row-start-3 md:row-start-2'>
+        <div className='md:col-span-2 md:row-start-2'>
           <ContactForm />
         </div>
 
-        <div className='place-self-center self-start md:pl-4'>
+        <div className='md:col-span-1 md:row-span-2 self-start md:pl-4'>
           <div className=' pb-10'>
             <p className='text-2xl font-bold text-primary-700 pb-2'>{data.headerAdresa}</p>
           <p>{data.adresa}</p>

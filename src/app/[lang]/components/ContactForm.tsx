@@ -64,7 +64,7 @@ const ContactForm = () => {
           <input
             type="text"
             id="name"
-            name="name"
+            name="Meno a priezvisko"
             required
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
@@ -77,7 +77,7 @@ const ContactForm = () => {
           <input
             type="email"
             id="email"
-            name="email"
+            name="Email"
             required
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
@@ -90,7 +90,7 @@ const ContactForm = () => {
           <input
             type="tel"
             id="phone"
-            name="phone"
+            name="Telefónne číslo"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
@@ -102,7 +102,7 @@ const ContactForm = () => {
           <input
             type="text"
             id="company"
-            name="company"
+            name="Firma"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
@@ -114,20 +114,8 @@ const ContactForm = () => {
           <input
             type="text"
             id="services"
-            name="services"
+            name="Služby"
             placeholder="Napíšte, o čo máte záujem"
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          />
-        </div>
-
-        <div>
-          <label htmlFor="budget" className="block text-primary-700 text-sm font-bold mb-2">
-            Aký máte rozpočet? (nepovinné)
-          </label>
-          <input
-            type="text"
-            id="budget"
-            name="budget"
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
         </div>
@@ -138,7 +126,7 @@ const ContactForm = () => {
           </label>
           <textarea
             id="message"
-            name="message"
+            name="Správa"
             rows={4}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
           />
