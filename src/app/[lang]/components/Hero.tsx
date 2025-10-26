@@ -42,7 +42,6 @@ const Hero = ({data}: HeroProps) => {
         alt="Hero Background"
         layout="fill"
         objectFit="cover"
-        quality={100}
         className="z-0"
       />
       <div className="absolute inset-0 flex flex-col items-center justify-center z-10 mb-36 md:mb-0 text-white">

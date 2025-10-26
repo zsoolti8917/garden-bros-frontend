@@ -30,7 +30,7 @@ const SluzbySections = ({ data }: any) => {
                 className="w-full h-auto object-cover rounded-xl "
                 width={section.image.data.attributes.width}
                 height={section.image.data.attributes.height}
-                // Optional: layout="fill" to make the image responsive and fill the container 
+                sizes="(min-width: 1024px) 50vw, 100vw"
               />
             </div>
             <div className="lg:w-1/2 p-4 lg:p-8">
